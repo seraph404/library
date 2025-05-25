@@ -25,3 +25,22 @@ function addBookToLibrary(title, author, pages, haveRead) {
 addBookToLibrary("The Hobbit", "JRR Tolkien", 300, true);
 addBookToLibrary("The House of the Spirits", "Isabelle Allende", 488, true);
 addBookToLibrary("The Grapes of Wrath", "John Steinbeck", 460, false);
+
+function displayBooks() {
+  function createCell(content) {
+    const td = document.createElement("td");
+    td.textContent = content;
+    return td;
+  }
+  const booksDiv = document.querySelector("#books > tbody");
+  myLibrary.forEach((book) => {
+    const tr = document.createElement("tr");
+    tr.appendChild(createCell(book.title));
+    tr.appendChild(createCell(book.author));
+    tr.appendChild(createCell(book.pages));
+    tr.appendChild(createCell(book.haveRead));
+    booksDiv.append(tr);
+  });
+}
+
+displayBooks();
