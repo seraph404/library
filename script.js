@@ -105,6 +105,11 @@ function deleteBook(bookId) {
   displayBooks();
 }
 
+document.querySelector("#cancel-btn").addEventListener("click", (e) => {
+  document.querySelector("#book-form").reset();
+  newBookDialog.close();
+});
+
 document.querySelector("#book-form").addEventListener("submit", submitNewBook);
 
 const deleteBookBtn = document.querySelectorAll(".delete-btn");
