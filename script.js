@@ -11,6 +11,11 @@ function Book(id, title, author, pages, haveRead) {
   this.haveRead = haveRead;
 }
 
+// prototype method
+Book.prototype.toggleRead = function () {
+  this.haveRead = !this.haveRead;
+};
+
 function addBookToLibrary(title, author, pages, haveRead) {
   const id = crypto.randomUUID();
   const book = new Book(id, title, author, pages, haveRead);
@@ -43,9 +48,20 @@ function displayBooks() {
     deleteLink.classList.add("delete-btn");
     deleteLink.setAttribute("href", "#");
 
+    // add read button
+    const readBtn = document.createElement("button");
+    readBtn.textContent = "Mark read";
+    readBtn.classList.add("read-btn");
+
+    // append delete button
     const deleteCell = document.createElement("td");
     deleteCell.appendChild(deleteLink);
     tr.appendChild(deleteCell);
+
+    // append read button
+    const readCell = document.createElement("td");
+    readCell.appendChild(readBtn);
+    tr.appendChild(readCell);
 
     booksDiv.append(tr);
   });
@@ -70,7 +86,9 @@ function submitNewBook(e) {
   const haveRead = haveReadValue === "true";
 
   addBookToLibrary(title, author, pages, haveRead);
+
   displayBooks();
+
   form.reset();
   newBookDialog.close();
 }
@@ -95,6 +113,13 @@ document.querySelector("#books > tbody").addEventListener("click", (e) => {
     e.preventDefault();
     const bookId = e.target.closest("tr").id;
     deleteBook(bookId);
+  } else if (e.target.classList.contains("read-btn")) {
+    const bookId = e.target.closest("tr").id;
+    const book = myLibrary.find((book) => book.id === bookId);
+    if (book) {
+      book.toggleRead();
+      displayBooks();
+    }
   }
 });
 
