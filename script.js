@@ -1,5 +1,4 @@
 const myLibrary = [];
-const booksDiv = document.querySelector("#books > tbody");
 
 function Book(id, title, author, pages, haveRead) {
   if (!new.target) {
@@ -10,10 +9,6 @@ function Book(id, title, author, pages, haveRead) {
   this.author = author;
   this.pages = pages;
   this.haveRead = haveRead;
-  this.info = function () {
-    const readStatus = this.haveRead ? "already read" : "not read yet";
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
-  };
 }
 
 function addBookToLibrary(title, author, pages, haveRead) {
@@ -22,54 +17,43 @@ function addBookToLibrary(title, author, pages, haveRead) {
   myLibrary.push(book);
 }
 
-// create some books for array
-addBookToLibrary("The Hobbit", "JRR Tolkien", 300, true);
-addBookToLibrary("The House of the Spirits", "Isabelle Allende", 488, true);
-addBookToLibrary("The Grapes of Wrath", "John Steinbeck", 460, false);
-
 function displayBooks() {
-  // clear the table, first
-  booksDiv.textContent = "";
-
-  function createCell(content) {
-    const td = document.createElement("td");
-    // handle both text content and DOM elements
-    if (
-      typeof content === "string" ||
-      typeof content === "number" ||
-      typeof content === "boolean"
-    ) {
-      td.textContent = content;
-    } else {
-      td.appendChild(content);
-    }
-    return td;
-  }
+  const booksDiv = document.querySelector("#books > tbody");
+  booksDiv.textContent = ""; // clear table first
 
   myLibrary.forEach((book) => {
     const tr = document.createElement("tr");
     tr.setAttribute("id", book.id);
 
-    // delete button stuff
-    const deleteLink = document.createElement("a");
-    deleteLink.classList.add("delete-btn");
-    deleteLink.textContent = "❌";
-    deleteLink.setAttribute("href", "#");
-
+    // create table cells
+    const createCell = (content) => {
+      const td = document.createElement("td");
+      td.textContent = content;
+      return td;
+    };
+    // add book info to row
     tr.appendChild(createCell(book.title));
     tr.appendChild(createCell(book.author));
     tr.appendChild(createCell(book.pages));
     tr.appendChild(createCell(book.haveRead));
-    tr.appendChild(createCell(deleteLink));
+
+    // add delete button
+    const deleteLink = document.createElement("a");
+    deleteLink.textContent = "❌";
+    deleteLink.classList.add("delete-btn");
+    deleteLink.setAttribute("href", "#");
+
+    const deleteCell = document.createElement("td");
+    deleteCell.appendChild(deleteLink);
+    tr.appendChild(deleteCell);
 
     booksDiv.append(tr);
   });
 }
 
-displayBooks();
-
 const newBookBtn = document.querySelector("#new-book-btn");
 const newBookDialog = document.querySelector("#new-book");
+
 newBookBtn.addEventListener("click", () => {
   newBookDialog.showModal();
 });
@@ -103,14 +87,6 @@ function submitNewBook(e) {
   newBookDialog.close();
 }
 
-const submitBookBtn = document.querySelector("#submit-book-btn");
-submitBookBtn.addEventListener("click", (e) => submitNewBook(e));
-
-const deleteBookBtn = document.querySelectorAll(".delete-btn");
-deleteBookBtn.forEach((button) => {
-  console.log("hi");
-});
-
 function deleteBook(bookId) {
   const index = myLibrary.findIndex((book) => book.id === bookId);
   if (index !== -1) {
@@ -119,10 +95,25 @@ function deleteBook(bookId) {
   displayBooks();
 }
 
-booksDiv.addEventListener("click", (e) => {
+const submitBookBtn = document.querySelector("#submit-book-btn");
+submitBookBtn.addEventListener("click", (e) => submitNewBook(e));
+
+const deleteBookBtn = document.querySelectorAll(".delete-btn");
+deleteBookBtn.forEach((button) => {
+  console.log("hi");
+});
+
+document.querySelector("#books > tbody").addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-btn")) {
     e.preventDefault();
     const bookId = e.target.closest("tr").id;
     deleteBook(bookId);
   }
 });
+
+// create some books for array
+addBookToLibrary("The Hobbit", "JRR Tolkien", 300, true);
+addBookToLibrary("The House of the Spirits", "Isabelle Allende", 488, true);
+addBookToLibrary("The Grapes of Wrath", "John Steinbeck", 460, false);
+
+displayBooks();
