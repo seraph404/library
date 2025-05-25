@@ -43,6 +43,7 @@ function displayBooks() {
     tr.appendChild(createCell(book.author));
     tr.appendChild(createCell(book.pages));
     tr.appendChild(createCell(book.haveRead));
+    tr.appendChild(createCell("❌"));
     tr.setAttribute("id", book.id);
     booksDiv.append(tr);
   });
