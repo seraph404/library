@@ -57,15 +57,15 @@ function displayBooks() {
     readBtn.textContent = "Mark read";
     readBtn.classList.add("read-btn");
 
-    // append delete button
-    const deleteCell = document.createElement("td");
-    deleteCell.appendChild(deleteLink);
-    tr.appendChild(deleteCell);
-
     // append read button
     const readCell = document.createElement("td");
     readCell.appendChild(readBtn);
     tr.appendChild(readCell);
+
+    // append delete button
+    const deleteCell = document.createElement("td");
+    deleteCell.appendChild(deleteLink);
+    tr.appendChild(deleteCell);
 
     booksDiv.append(tr);
   });
