@@ -1,4 +1,5 @@
 const myLibrary = [];
+const booksDiv = document.querySelector("#books > tbody");
 
 function Book(id, title, author, pages, haveRead) {
   if (!new.target) {
@@ -27,24 +28,40 @@ addBookToLibrary("The House of the Spirits", "Isabelle Allende", 488, true);
 addBookToLibrary("The Grapes of Wrath", "John Steinbeck", 460, false);
 
 function displayBooks() {
-  const booksDiv = document.querySelector("#books > tbody");
-
   // clear the table, first
   booksDiv.textContent = "";
 
   function createCell(content) {
     const td = document.createElement("td");
-    td.textContent = content;
+    // handle both text content and DOM elements
+    if (
+      typeof content === "string" ||
+      typeof content === "number" ||
+      typeof content === "boolean"
+    ) {
+      td.textContent = content;
+    } else {
+      td.appendChild(content);
+    }
     return td;
   }
+
   myLibrary.forEach((book) => {
     const tr = document.createElement("tr");
+    tr.setAttribute("id", book.id);
+
+    // delete button stuff
+    const deleteLink = document.createElement("a");
+    deleteLink.classList.add("delete-btn");
+    deleteLink.textContent = "❌";
+    deleteLink.setAttribute("href", "#");
+
     tr.appendChild(createCell(book.title));
     tr.appendChild(createCell(book.author));
     tr.appendChild(createCell(book.pages));
     tr.appendChild(createCell(book.haveRead));
-    tr.appendChild(createCell("❌"));
-    tr.setAttribute("id", book.id);
+    tr.appendChild(createCell(deleteLink));
+
     booksDiv.append(tr);
   });
 }
@@ -88,3 +105,24 @@ function submitNewBook(e) {
 
 const submitBookBtn = document.querySelector("#submit-book-btn");
 submitBookBtn.addEventListener("click", (e) => submitNewBook(e));
+
+const deleteBookBtn = document.querySelectorAll(".delete-btn");
+deleteBookBtn.forEach((button) => {
+  console.log("hi");
+});
+
+function deleteBook(bookId) {
+  const index = myLibrary.findIndex((book) => book.id === bookId);
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+  }
+  displayBooks();
+}
+
+booksDiv.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-btn")) {
+    e.preventDefault();
+    const bookId = e.target.closest("tr").id;
+    deleteBook(bookId);
+  }
+});
