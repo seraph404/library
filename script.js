@@ -60,29 +60,17 @@ newBookBtn.addEventListener("click", () => {
 
 function submitNewBook(e) {
   e.preventDefault();
-  const inputs = document.querySelectorAll("input");
-  let title, author, pages, haveRead;
-  inputs.forEach((input) => {
-    switch (input.name) {
-      case "title":
-        title = input.value;
-        break;
-      case "author":
-        author = input.value;
-        break;
-      case "pages":
-        pages = input.value;
-        break;
-      case "haveRead":
-        if (input.checked) {
-          haveRead = input.value === "true";
-        }
-    }
-  });
+  const form = e.target;
+
+  const title = form.title.value;
+  const author = form.author.value;
+  const pages = form.pages.value;
+
+  const haveReadValue = form.haveRead.value;
+  const haveRead = haveReadValue === "true";
 
   addBookToLibrary(title, author, pages, haveRead);
   displayBooks();
-  const form = document.querySelector("form");
   form.reset();
   newBookDialog.close();
 }
@@ -95,8 +83,7 @@ function deleteBook(bookId) {
   displayBooks();
 }
 
-const submitBookBtn = document.querySelector("#submit-book-btn");
-submitBookBtn.addEventListener("click", (e) => submitNewBook(e));
+document.querySelector("#book-form").addEventListener("submit", submitNewBook);
 
 const deleteBookBtn = document.querySelectorAll(".delete-btn");
 deleteBookBtn.forEach((button) => {
