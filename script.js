@@ -11,7 +11,7 @@ function Book(id, title, author, pages, haveRead) {
   this.haveRead = haveRead;
   this.info = function () {
     const readStatus = this.haveRead ? "already read" : "not read yet";
-    return `${this.title} by ${this.author}, ${pages} pages, ${readStatus}`;
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
   };
 }
 
