@@ -37,10 +37,18 @@
               <label for="haveRead">Read</label>
             </div>
           </fieldset>
-          <button value="cancel" formmethod="dialog" formnovalidate>
+          <button
+            type="button"
+            id="cancel-btn"
+            value="cancel"
+            formmethod="dialog"
+            formnovalidate
+          >
             Cancel
           </button>
-          <button id="submit-book-btn" value="default">Submit</button>
+          <button type="submit" id="submit-book-btn" value="default">
+            Submit
+          </button>
         </form>
       </dialog>
       <table id="books">
