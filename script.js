@@ -27,12 +27,16 @@ addBookToLibrary("The House of the Spirits", "Isabelle Allende", 488, true);
 addBookToLibrary("The Grapes of Wrath", "John Steinbeck", 460, false);
 
 function displayBooks() {
+  const booksDiv = document.querySelector("#books > tbody");
+
+  // clear the table, first
+  booksDiv.textContent = "";
+
   function createCell(content) {
     const td = document.createElement("td");
     td.textContent = content;
     return td;
   }
-  const booksDiv = document.querySelector("#books > tbody");
   myLibrary.forEach((book) => {
     const tr = document.createElement("tr");
     tr.appendChild(createCell(book.title));
@@ -50,3 +54,31 @@ const newBookDialog = document.querySelector("#new-book");
 newBookBtn.addEventListener("click", () => {
   newBookDialog.showModal();
 });
+
+function submitNewBook(e) {
+  e.preventDefault();
+  const inputs = document.querySelectorAll("input");
+  let title, author, pages, haveRead;
+  inputs.forEach((input) => {
+    switch (input.name) {
+      case "title":
+        title = input.value;
+        break;
+      case "author":
+        author = input.value;
+        break;
+      case "pages":
+        pages = input.value;
+        break;
+      case "haveRead":
+        if (input.checked) haveRead = input.value;
+        break;
+    }
+  });
+
+  addBookToLibrary(title, author, pages, haveRead);
+  displayBooks();
+}
+
+const submitBookBtn = document.querySelector("#submit-book-btn");
+submitBookBtn.addEventListener("click", (e) => submitNewBook(e));
