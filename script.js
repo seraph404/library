@@ -40,7 +40,11 @@ function displayBooks() {
     tr.appendChild(createCell(book.title));
     tr.appendChild(createCell(book.author));
     tr.appendChild(createCell(book.pages));
-    tr.appendChild(createCell(book.haveRead));
+    if (book.haveRead === true) {
+      tr.appendChild(createCell("Yes"));
+    } else {
+      tr.appendChild(createCell("No"));
+    }
 
     // add delete button
     const deleteLink = document.createElement("a");
