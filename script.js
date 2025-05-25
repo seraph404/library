@@ -71,13 +71,17 @@ function submitNewBook(e) {
         pages = input.value;
         break;
       case "haveRead":
-        if (input.checked) haveRead = input.value;
-        break;
+        if (input.checked) {
+          haveRead = input.value === "true";
+        }
     }
   });
 
   addBookToLibrary(title, author, pages, haveRead);
   displayBooks();
+  const form = document.querySelector("form");
+  form.reset();
+  newBookDialog.close();
 }
 
 const submitBookBtn = document.querySelector("#submit-book-btn");
