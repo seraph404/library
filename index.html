@@ -16,27 +16,31 @@
         <form>
           <div>
             <label for="title">Title</label>
-            <input type="text" id="title" required />
+            <input type="text" name="title" required />
           </div>
           <div>
             <label for="author">Author</label>
-            <input type="text" id="author" required />
+            <input type="text" name="author" required />
           </div>
           <div>
             <label for="pages">Pages</label>
-            <input type="number" id="pages" required />
+            <input type="number" name="pages" required />
           </div>
           <fieldset>
             <legend>Reading status</legend>
-            <input type="radio" id="haveRead" />
-            <label for="haveRead">Read</label>
-            <input type="radio" id="haveNotRead" required />
-            <label for="haveNotRead">Not read</label>
+            <div>
+              <input type="radio" name="readingStatus" />
+              <label for="haveRead">Read</label>
+            </div>
+            <div>
+              <input type="radio" name="readingStatus" required />
+              <label for="haveNotRead">Not read</label>
+            </div>
           </fieldset>
           <button value="cancel" formmethod="dialog" formnovalidate>
             Cancel
           </button>
-          <button id="confirm" value="default">Confirm</button>
+          <button id="submit-book-btn" value="default">Submit</button>
         </form>
       </dialog>
       <table id="books">
