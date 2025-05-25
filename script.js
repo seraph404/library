@@ -20,3 +20,8 @@ function addBookToLibrary(title, author, pages, haveRead) {
   const book = new Book(id, title, author, pages, haveRead);
   myLibrary.push(book);
 }
+
+// create some books for array
+addBookToLibrary("The Hobbit", "JRR Tolkien", 300, true);
+addBookToLibrary("The House of the Spirits", "Isabelle Allende", 488, true);
+addBookToLibrary("The Grapes of Wrath", "John Steinbeck", 460, false);
