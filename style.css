@@ -17,3 +17,22 @@ td {
   padding: 10px;
   border: 1px solid black;
 }
+form > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+form > button {
+  margin-top: 10px;
+}
+
+/* hide spinners on number input */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Safari/Chrome */
+  margin: 0;
+}
