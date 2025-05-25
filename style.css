@@ -25,6 +25,9 @@ form > div {
 form > button {
   margin-top: 10px;
 }
+table a {
+  text-decoration: none;
+}
 
 /* hide spinners on number input */
 input[type="number"] {
