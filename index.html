@@ -29,12 +29,12 @@
           <fieldset>
             <legend>Reading status</legend>
             <div>
-              <input type="radio" name="readingStatus" />
-              <label for="haveRead">Read</label>
+              <input type="radio" name="haveRead" value="false" checked />
+              <label for="haveRead">Not read</label>
             </div>
             <div>
-              <input type="radio" name="readingStatus" required />
-              <label for="haveNotRead">Not read</label>
+              <input type="radio" name="haveRead" value="true" required />
+              <label for="haveRead">Read</label>
             </div>
           </fieldset>
           <button value="cancel" formmethod="dialog" formnovalidate>
